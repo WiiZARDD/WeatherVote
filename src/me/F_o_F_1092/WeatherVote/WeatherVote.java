@@ -40,6 +40,7 @@ public class WeatherVote {
 	protected WeatherVote(String worldName, Weather weather, UUID uuid) {
 		this.worldName = worldName;
 		this.weather = weather;
+		ServerLog.log("Starting weather vote - World: " + worldName + ", Weather: " + weather);
 		
 		VotingGUIListener.closeVotingGUIsAtWorld(this.worldName);
 		
@@ -359,7 +360,9 @@ public class WeatherVote {
 					
 					WeatherVoteStats wvs = new WeatherVoteStats();
 					
+					ServerLog.log("Vote ending - Yes votes: " + getYesVotes() + ", No votes: " + getNoVotes());
 					if (getYesVotes() > getNoVotes()) {
+						ServerLog.log("Vote passed! Attempting to change weather...");
 						sendMessage(Options.msg.get("[WeatherVote]") + Options.msg.get("msg.12"));
 						
 						if (Options.useTitle) {
@@ -370,14 +373,26 @@ public class WeatherVote {
 						}
 						
 						
-						if (getWeather() == Weather.SUN) {
-							Bukkit.getWorld(worldName).setStorm(false);
-							wvs.setSunnyStats(getYesVotes(), getNoVotes(), true, Options.price);
+						org.bukkit.World world = Bukkit.getWorld(worldName);
+						if (world != null) {
+							if (getWeather() == Weather.SUN) {
+								ServerLog.log("Changing weather to SUNNY in world: " + worldName);
+								world.setStorm(false);
+								world.setThundering(false);
+								world.setWeatherDuration(12000); // Set duration for 10 minutes
+								wvs.setSunnyStats(getYesVotes(), getNoVotes(), true, Options.price);
+							} else {
+								ServerLog.log("Changing weather to RAINY in world: " + worldName);
+								world.setStorm(true);
+								world.setThundering(true);
+								world.setWeatherDuration(12000); // Set duration for 10 minutes
+								wvs.setRainyStats(getYesVotes(), getNoVotes(), true, Options.price);
+							}
 						} else {
-							Bukkit.getWorld(worldName).setStorm(true);
-							wvs.setRainyStats(getYesVotes(), getNoVotes(), true, Options.price);
+							ServerLog.err("Failed to change weather: World '" + worldName + "' not found!");
 						}
 					} else {
+						ServerLog.log("Vote failed! Not enough yes votes.");
 						sendMessage(Options.msg.get("[WeatherVote]") + Options.msg.get("msg.13"));
 						
 						if (Options.useTitle) {
@@ -562,7 +577,7 @@ public class WeatherVote {
 			try {
 				objective.setDisplayName(Options.msg.get("[WeatherVote]") + Options.msg.get("color.1") + Options.msg.get("text.1"));
 			} catch (Exception e) {
-				objective.setDisplayName("§f[§9Weather§bVote§f] §6Sunny");
+				objective.setDisplayName("ï¿½f[ï¿½9Weatherï¿½bVoteï¿½f] ï¿½6Sunny");
 				
 				ServerLog.err("The scoreboard name caused a problem. (Message: text.1) [" + e.getMessage() +"]");
 			}
@@ -570,7 +585,7 @@ public class WeatherVote {
 			try {
 				objective.setDisplayName(Options.msg.get("[WeatherVote]") +  Options.msg.get("color.1") + Options.msg.get("text.2"));
 			} catch (Exception e) {
-				objective.setDisplayName("§f[§9Weather§bVote§f] §6Rainy");
+				objective.setDisplayName("ï¿½f[ï¿½9Weatherï¿½bVoteï¿½f] ï¿½6Rainy");
 				
 				ServerLog.err("The scoreboard name caused a problem. (Message: text.2) [" + e.getMessage() +"]");
 			}

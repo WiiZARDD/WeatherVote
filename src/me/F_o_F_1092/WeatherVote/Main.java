@@ -37,7 +37,7 @@ public class Main extends JavaPlugin {
 
 		plugin = this;
 		
-		ServerLog.setPluginTag("§f[§9Weather§bVote§f]§9");
+		ServerLog.setPluginTag("ï¿½f[ï¿½9Weatherï¿½bVoteï¿½f]ï¿½9");
 		UpdateListener.initializeUpdateListener(1.42, "1.4.2", 7642);
 		UpdateListener.checkForUpdate();
 		
@@ -46,8 +46,8 @@ public class Main extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new EventListener(), this);
 
-		this.getCommand("WeatherVote").setExecutor(new CommandWeatherVote());
-		this.getCommand("WeatherVote").setTabCompleter(new CommandWeatherVoteTabCompleter());
+		this.getCommand("weathervote").setExecutor(new CommandWeatherVote());
+		this.getCommand("weathervote").setTabCompleter(new CommandWeatherVoteTabCompleter());
 
 		
 	}
@@ -144,10 +144,10 @@ public class Main extends JavaPlugin {
 		ServerLog.setUseColoredColores(ymlFileConfig.getBoolean("ColoredConsoleText"));
 		
 		if (!ymlFileConfig.getBoolean("GameVersion.SetOwn")) {
-			ServerLog.log("ServerType:§b " + VersionManager.getSetverTypeString() + "§9, Version:§b " + VersionManager.getBukkitVersion());
+			ServerLog.log("ServerType:ï¿½b " + VersionManager.getSetverTypeString() + "ï¿½9, Version:ï¿½b " + VersionManager.getBukkitVersion());
 		} else {
 			VersionManager.setVersionManager(ymlFileConfig.getString("GameVersion.Version"), ServerType.BUKKIT, true);
-			ServerLog.log("ServerType:§b " + VersionManager.getSetverTypeString() + "§9, Version:§b " + VersionManager.getBukkitVersion() + "§9 | §b(Self configurated)");
+			ServerLog.log("ServerType:ï¿½b " + VersionManager.getSetverTypeString() + "ï¿½9, Version:ï¿½b " + VersionManager.getBukkitVersion() + "ï¿½9 | ï¿½b(Self configurated)");
 		}
 		
 		Options.votingTime = ymlFileConfig.getLong("VotingTime");
