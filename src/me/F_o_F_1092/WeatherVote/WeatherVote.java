@@ -577,7 +577,7 @@ public class WeatherVote {
 			try {
 				objective.setDisplayName(Options.msg.get("[WeatherVote]") + Options.msg.get("color.1") + Options.msg.get("text.1"));
 			} catch (Exception e) {
-				objective.setDisplayName("�f[�9Weather�bVote�f] �6Sunny");
+				objective.setDisplayName("§f[§9Weather§bVote§f] §6Sunny");
 				
 				ServerLog.err("The scoreboard name caused a problem. (Message: text.1) [" + e.getMessage() +"]");
 			}
@@ -585,7 +585,7 @@ public class WeatherVote {
 			try {
 				objective.setDisplayName(Options.msg.get("[WeatherVote]") +  Options.msg.get("color.1") + Options.msg.get("text.2"));
 			} catch (Exception e) {
-				objective.setDisplayName("�f[�9Weather�bVote�f] �6Rainy");
+				objective.setDisplayName("§f[§9Weather§bVote§f] §6Rainy");
 				
 				ServerLog.err("The scoreboard name caused a problem. (Message: text.2) [" + e.getMessage() +"]");
 			}

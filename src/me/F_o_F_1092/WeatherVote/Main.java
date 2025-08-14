@@ -37,7 +37,7 @@ public class Main extends JavaPlugin {
 
 		plugin = this;
 		
-		ServerLog.setPluginTag("�f[�9Weather�bVote�f]�9");
+		ServerLog.setPluginTag("§f[§9Weather§bVote§f]§9");
 		UpdateListener.initializeUpdateListener(1.42, "1.4.2", 7642);
 		UpdateListener.checkForUpdate();
 		
@@ -144,10 +144,10 @@ public class Main extends JavaPlugin {
 		ServerLog.setUseColoredColores(ymlFileConfig.getBoolean("ColoredConsoleText"));
 		
 		if (!ymlFileConfig.getBoolean("GameVersion.SetOwn")) {
-			ServerLog.log("ServerType:�b " + VersionManager.getSetverTypeString() + "�9, Version:�b " + VersionManager.getBukkitVersion());
+			ServerLog.log("ServerType:§b " + VersionManager.getSetverTypeString() + "§9, Version:§b " + VersionManager.getBukkitVersion());
 		} else {
 			VersionManager.setVersionManager(ymlFileConfig.getString("GameVersion.Version"), ServerType.BUKKIT, true);
-			ServerLog.log("ServerType:�b " + VersionManager.getSetverTypeString() + "�9, Version:�b " + VersionManager.getBukkitVersion() + "�9 | �b(Self configurated)");
+			ServerLog.log("ServerType:§b " + VersionManager.getSetverTypeString() + "§9, Version:§b " + VersionManager.getBukkitVersion() + "§9 | §b(Self configurated)");
 		}
 		
 		Options.votingTime = ymlFileConfig.getLong("VotingTime");
