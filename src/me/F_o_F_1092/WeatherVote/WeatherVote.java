@@ -370,6 +370,7 @@ public class WeatherVote {
 						}
 						
 						
+						ServerLog.log("Vote passed - no refund given to " + votePlayers.get(0).getPlayer().getName());
 						if (getWeather() == Weather.SUN) {
 							Bukkit.getWorld(worldName).setStorm(false);
 							wvs.setSunnyStats(getYesVotes(), getNoVotes(), true, Options.price);
@@ -390,6 +391,7 @@ public class WeatherVote {
 						
 						if (Options.refundVotingPriceIfVotingFails) {
 							if (WeatherVoteListener.isVaultInUse()) {
+								ServerLog.log("Refunding " + Options.price + " to " + votePlayers.get(0).getPlayer().getName() + " (vote failed)");
 								WeatherVoteListener.getVault().depositPlayer(votePlayers.get(0).getPlayer(), Options.price);
 							}
 							
@@ -404,12 +406,6 @@ public class WeatherVote {
 							} else {
 								wvs.setRainyStats(getYesVotes(), getNoVotes(), false, 0.0);
 							}
-						}
-					}
-					
-					if (Options.refundVotingPriceIfVotingFails) {
-						if (WeatherVoteListener.isVaultInUse()) {
-							WeatherVoteListener.getVault().depositPlayer(votePlayers.get(0).getPlayer(), Options.price);
 						}
 					}
 					
@@ -531,6 +527,7 @@ public class WeatherVote {
 		if (!useTimer) {
 			if (Options.refundVotingPriceIfVotingFails) {
 				if (WeatherVoteListener.isVaultInUse()) {
+					ServerLog.log("Refunding " + Options.price + " to " + votePlayers.get(0).getPlayer().getName() + " (vote manually stopped)");
 					WeatherVoteListener.getVault().depositPlayer(votePlayers.get(0).getPlayer(), Options.price);
 				}
 			}
@@ -562,7 +559,7 @@ public class WeatherVote {
 			try {
 				objective.setDisplayName(Options.msg.get("[WeatherVote]") + Options.msg.get("color.1") + Options.msg.get("text.1"));
 			} catch (Exception e) {
-				objective.setDisplayName("§f[§9Weather§bVote§f] §6Sunny");
+				objective.setDisplayName("ï¿½f[ï¿½9Weatherï¿½bVoteï¿½f] ï¿½6Sunny");
 				
 				ServerLog.err("The scoreboard name caused a problem. (Message: text.1) [" + e.getMessage() +"]");
 			}
@@ -570,7 +567,7 @@ public class WeatherVote {
 			try {
 				objective.setDisplayName(Options.msg.get("[WeatherVote]") +  Options.msg.get("color.1") + Options.msg.get("text.2"));
 			} catch (Exception e) {
-				objective.setDisplayName("§f[§9Weather§bVote§f] §6Rainy");
+				objective.setDisplayName("ï¿½f[ï¿½9Weatherï¿½bVoteï¿½f] ï¿½6Rainy");
 				
 				ServerLog.err("The scoreboard name caused a problem. (Message: text.2) [" + e.getMessage() +"]");
 			}
